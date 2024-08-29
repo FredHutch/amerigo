@@ -120,5 +120,10 @@ server <- function(input, output) {
   })
 }
 
-shinyApp(ui = ui, server = server,
-         options = list(host = "0.0.0.0", port = 3838, launch.browser = FALSE))
+options <- list()
+if (!interactive()) {
+  options$launch.browser <- FALSE
+  options$host <- "0.0.0.0"
+  options$port <- 3838
+}
+shinyApp(ui = ui, server = server, options = options)
