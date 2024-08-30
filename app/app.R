@@ -24,6 +24,7 @@ ui <- page_sidebar(
       "text/comma-separated-values,text/plain",
       ".csv")),
     selectInput("PAL", "Color Palette", choices = c("viridis", "magma", "inferno", "plasma", rownames(RColorBrewer::brewer.pal.info)), selected = "viridis"),
+    checkboxInput("rev_col_pal", "Reverse Color Palette", value = FALSE),
     checkboxInput("grey_map", "Grey Background Map", value = TRUE),
     sliderInput("fill_opacity", "Fill Opacity", min = 0, max = 1, value = 1, step = 0.2),
     textInput("border_color", "Border Color", "black"),
@@ -74,7 +75,7 @@ server <- function(input, output) {
   # })
   
   output$mainleaflet <- renderLeaflet({
-    pal <- colorNumeric(input$PAL, NULL)
+    pal <- colorNumeric(input$PAL, NULL, reverse = input$rev_col_pal)
     
       req(input$CSV)
       uploaded_data <- read_csv(input$CSV$datapath)
