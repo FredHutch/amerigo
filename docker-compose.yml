@@ -3,7 +3,7 @@ services:
   amerigo:
     image: sc-registry.fredhutch.org/amerigo:latest
     networks:
-      - proxytemp
+      - sc-swarm-net
     deploy:
       restart_policy:
         condition: on-failure
@@ -16,5 +16,5 @@ services:
         - "traefik.http.routers.amerigo.tls=true"
 
 networks:
-  proxytemp:
+  sc-swarm-net:
     external: true
